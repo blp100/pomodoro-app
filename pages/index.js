@@ -1,7 +1,11 @@
-import { Text } from "@chakra-ui/react";
+import { Heading, Text } from "@chakra-ui/react";
 
 const Page = () => {
-  return <Text>Hello, World!</Text>;
+  return (
+    <Text fontFamily="Roboto_Slab" textStyle="h1">
+      Hello, World.
+    </Text>
+  );
 };
 
 export default Page;
