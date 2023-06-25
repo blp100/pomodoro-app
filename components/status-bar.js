@@ -22,12 +22,13 @@ const StatusBar = () => {
       h="63px"
       bgColor="darkBlueBlack"
       mx="auto"
-      mt={["45px","55px"]}
+      mt={["45px", "55px"]}
       borderRadius="31.5px"
       alignItems="center"
       justifyContent="center"
-      zIndex={1}
       textAlign="center"
+      zIndex={1}
+      position="relative"
     >
       {tabs.map((item) => (
         <Flex
