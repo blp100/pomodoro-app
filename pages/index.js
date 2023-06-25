@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Button, HStack, Text } from "@chakra-ui/react";
 import { themeColorData } from "../lib/constants";
-import Header from "../components/header123";
+import Header from "../components/header";
 import StatusBar from "../components/status-bar";
 import ThemeContext from "../components/color-theme";
 import Timer from "../components/timer";
