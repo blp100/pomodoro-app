@@ -19,9 +19,6 @@ const Page = () => {
       <Header />
       <StatusBar />
       <Timer />
-      <Text fontFamily="Roboto_Slab" textStyle="h1" as="h1" textAlign="center">
-        Hello, World.
-      </Text>
       <HStack mx="auto" width="200px" justifyContent="space-evenly">
         <Button bgColor="pastelRed" width={12} height={12} borderRadius="50%" onClick={e=>changeThemeColorHandler(themeColorData.red)}/>
         <Button bgColor="electricBlue" width={12} height={12} borderRadius="50%" onClick={e=>changeThemeColorHandler(themeColorData.blue)}/>
