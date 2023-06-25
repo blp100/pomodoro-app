@@ -1,15 +1,8 @@
-import {
-  Button,
-  Text,
-  Flex,
-  Box,
-  Container,
-  chakra,
-  shouldForwardProp,
-} from "@chakra-ui/react";
+import { Text, Flex, chakra, shouldForwardProp } from "@chakra-ui/react";
 import { motion, isValidMotionProp } from "framer-motion";
 import { initialTabs as tabs } from "../lib/constants";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import ThemeContext from "./color-theme";
 
 const ChakraBox = chakra(motion.div, {
   /**
@@ -21,12 +14,15 @@ const ChakraBox = chakra(motion.div, {
 
 const StatusBar = () => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const themeCtx = useContext(ThemeContext);
+
   return (
     <Flex
       w={["327px", "373px"]}
       h="63px"
       bgColor="darkBlueBlack"
       mx="auto"
+      mt={["45px","55px"]}
       borderRadius="31.5px"
       alignItems="center"
       justifyContent="center"
@@ -41,6 +37,7 @@ const StatusBar = () => {
           h="48px"
           justifyContent="center"
           alignItems="center"
+          cursor="pointer"
           onClick={() => setSelectedTab(item)}
         >
           <Text
@@ -50,6 +47,9 @@ const StatusBar = () => {
             userSelect="none"
             textStyle={"body1"}
             fontSize={["12px, 14px"]}
+            _hover={{
+              opacity: 0.8,
+            }}
             color={item === selectedTab ? "darkByzantineBlue" : "lavenderMist"}
             opacity={item === selectedTab ? "1" : "0.4"}
           >{`${item.label}`}</Text>
@@ -57,7 +57,7 @@ const StatusBar = () => {
             <ChakraBox
               transition={{
                 layout: {
-                  type: 'spring',
+                  type: "spring",
                   duration: 0.3,
                   // ease: "easeOut",
                 },
@@ -67,7 +67,7 @@ const StatusBar = () => {
               right={0}
               bottom={0}
               height="48px"
-              bgColor="pastelRed"
+              bgColor={themeCtx.themeColor}
               borderRadius="26.5px"
               zIndex={0}
               layoutId="pill"
