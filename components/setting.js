@@ -12,20 +12,13 @@ import {
   Divider,
   HStack,
   Text,
-  ButtonGroup,
-  IconButton,
-  Box,
   Flex,
 } from "@chakra-ui/react";
-import {
-  IoIosSettings,
-  IoIosArrowBack,
-  IoIosArrowForward,
-} from "react-icons/io";
-import { useContext } from "react";
+import { IoIosSettings } from "react-icons/io";
+import { useContext, useState } from "react";
 import ThemeContext from "../components/color-theme";
 import TimerInput from "./timer-input";
-import { themeColorData } from "../lib/constants";
+import ThemeSelector from "./theme-selector";
 
 const Setting = () => {
   const themeCtx = useContext(ThemeContext);
@@ -35,6 +28,18 @@ const Setting = () => {
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [themeColor, setThemeColor] = useState();
+
+  const setColorHandler = (color) => {
+    setThemeColor(color);
+    console.log(themeColor);
+  };
+
+  const applySettingHandler = () => {
+    changeThemeColorHandler(themeColor);
+    onClose();
+  };
+
   return (
     <>
       <Icon
@@ -52,7 +57,7 @@ const Setting = () => {
         }}
         onClick={onOpen}
       />
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} trapFocus={false}>
         <ModalOverlay />
         <ModalContent
           borderRadius={16}
@@ -79,9 +84,9 @@ const Setting = () => {
               justifyContent="space-between"
               color="lavenderMist"
             >
-              <TimerInput key="pomodoro" label="pomodoro" time="25"/>
-              <TimerInput key="shortBreak" label="short break" time="5"/>
-              <TimerInput key="longBreak" label="long break" time="15"/>
+              <TimerInput key="pomodoro" label="pomodoro" time="25" />
+              <TimerInput key="shortBreak" label="short break" time="5" />
+              <TimerInput key="longBreak" label="long break" time="15" />
             </Flex>
             <Divider />
             <HStack justifyContent="space-between" my={4}>
@@ -119,65 +124,16 @@ const Setting = () => {
               </HStack>
             </HStack>
             <Divider />
-            <HStack justifyContent="space-between" my={4}>
-              <Text textStyle="h4" as="h4">
-                COLOR
-              </Text>
-              <HStack width="200px" justifyContent="space-evenly">
-                <Button
-                  bgColor="pastelRed"
-                  width={12}
-                  height={12}
-                  borderRadius="50%"
-                  opacity={0.8}
-                  transitionProperty="all"
-                  transitionDuration="0.3s"
-                  transitionTimingFunction="ease-out"
-                  _hover={{
-                    opacity: 1,
-                    saturate: 2,
-                  }}
-                  onClick={(e) => changeThemeColorHandler(themeColorData.red)}
-                />
-                <Button
-                  bgColor="electricBlue"
-                  width={12}
-                  height={12}
-                  borderRadius="50%"
-                  opacity={0.8}
-                  transitionProperty="all"
-                  transitionDuration="0.3s"
-                  transitionTimingFunction="ease-out"
-                  _hover={{
-                    opacity: 1,
-                    saturate: 2,
-                  }}
-                  onClick={(e) => changeThemeColorHandler(themeColorData.blue)}
-                />
-                <Button
-                  bgColor="heliotrope"
-                  width={12}
-                  height={12}
-                  borderRadius="50%"
-                  opacity={0.8}
-                  transitionProperty="all"
-                  transitionDuration="0.3s"
-                  transitionTimingFunction="ease-out"
-                  _hover={{
-                    opacity: 1,
-                    saturate: 2,
-                  }}
-                  onClick={(e) =>
-                    changeThemeColorHandler(themeColorData.purple)
-                  }
-                />
-              </HStack>
-            </HStack>
+            <ThemeSelector setColorHandler={setColorHandler} />
           </ModalBody>
           <Divider />
           <ModalFooter>
-            <Button colorScheme="blue" borderRadius="full" onClick={onClose}>
-              Close
+            <Button
+              colorScheme="blue"
+              borderRadius="full"
+              onClick={applySettingHandler}
+            >
+              Apply
             </Button>
           </ModalFooter>
         </ModalContent>
