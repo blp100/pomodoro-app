@@ -48,6 +48,7 @@ const StatusBar = () => {
             userSelect="none"
             textStyle={"body1"}
             fontSize={["12px, 14px"]}
+            fontFamily={themeCtx.themeFont}
             _hover={{
               opacity: 0.8,
             }}

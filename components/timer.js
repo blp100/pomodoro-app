@@ -33,7 +33,7 @@ const Timer = () => {
             color="lavenderMist"
             position="relative"
             textAlign="Center"
-            fontFamily="Kumbh_Sans"
+            fontFamily={themeCtx.themeFont}
           >
             17:59
           </Text>
@@ -42,7 +42,7 @@ const Timer = () => {
             color="lavenderMist"
             position="relative"
             textAlign="Center"
-            fontFamily="Kumbh_Sans"
+            fontFamily={themeCtx.themeFont}
             ml={0.5}
           >
             START

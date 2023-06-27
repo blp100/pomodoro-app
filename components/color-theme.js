@@ -1,43 +1,61 @@
 import { createContext, useEffect, useState } from "react";
-import { themeColorData } from "../lib/constants";
+import { themeColorData, themeFontData } from "../lib/constants";
 
 const ThemeContext = createContext({
   themeColor: themeColorData.red,
-  changeThemeHandler: (color) => {},
+  themeFont: themeFontData.Kumbh_Sans,
+  changeThemeHandler: (color, font) => {},
 });
 
 export const ThemeContextProvider = ({ children }) => {
   const [themeColor, setThemeColor] = useState(themeColorData.red);
-  useEffect(() => initialThemeColorHandler());
+  const [themeFont, setThemeFont] = useState(themeFontData.Kumbh_Sans);
+
+  useEffect(() => initialThemeHandler());
 
   const isLocalStorageEmpty = () => {
-    return !localStorage.getItem("themeColor");
+    if (
+      !localStorage.getItem("themeColor") ||
+      !localStorage.getItem("themeFont")
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
-  const initialThemeColorHandler = () => {
+  const initialThemeHandler = () => {
     if (isLocalStorageEmpty()) {
       localStorage.setItem("themeColor", themeColorData.red);
+      localStorage.setItem("themeFont", themeFontData.Kumbh_Sans);
       setThemeColor(themeColorData.red);
     } else {
       const themeColor = localStorage.getItem("themeColor");
+      const themeFont = localStorage.getItem("themeFont");
       setThemeColor(() => {
         return themeColor;
+      });
+      setThemeFont(() => {
+        return themeFont;
       });
     }
   };
 
-  const changeThemeHandler = (color) => {
+  const changeThemeHandler = (color, font) => {
     const themeColor = localStorage.getItem("themeColor");
+    const themeFont = localStorage.getItem("themeFont");
     setThemeColor(color);
-    setValueToLocalStorage(color);
+    setThemeFont(font);
+    setValueToLocalStorage(color, font);
   };
 
-  const setValueToLocalStorage = (data) => {
-    localStorage.setItem("themeColor", `${data}`);
+  const setValueToLocalStorage = (color, font) => {
+    localStorage.setItem("themeColor", `${color}`);
+    localStorage.setItem("themeFont", `${font}`);
   };
 
   return (
-    <ThemeContext.Provider value={{ themeColor, changeThemeHandler }}>
+    <ThemeContext.Provider value={{ themeColor, themeFont, changeThemeHandler }}>
       {children}
     </ThemeContext.Provider>
   );

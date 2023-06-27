@@ -2,7 +2,7 @@ import { HStack, IconButton, Text } from "@chakra-ui/react";
 import { themeColorData } from "../lib/constants";
 import { IoIosCheckmark } from "react-icons/io";
 
-const ThemeSelector = (props) => {
+const ColorSelector = (props) => {
   const { setColorHandler, color, ...otherProps } = props;
 
   return (
@@ -75,4 +75,4 @@ const ThemeSelector = (props) => {
   );
 };
 
-export default ThemeSelector;
+export default ColorSelector;

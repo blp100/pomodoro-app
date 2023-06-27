@@ -18,25 +18,30 @@ import { IoIosSettings } from "react-icons/io";
 import { useContext, useState } from "react";
 import ThemeContext from "../components/color-theme";
 import TimerInput from "./timer-input";
-import ThemeSelector from "./theme-selector";
+import ColorSelector from "./color-selector";
+import FontSelector from "./font-selector";
 
 const Setting = () => {
   const themeCtx = useContext(ThemeContext);
 
-  const changeThemeColorHandler = (color) => {
-    themeCtx.changeThemeHandler(color);
+  const changeThemeHandler = (color, font) => {
+    themeCtx.changeThemeHandler(color, font);
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [themeColor, setThemeColor] = useState();
+  const [themeColor, setThemeColor] = useState(themeCtx.themeColor);
+  const [themeFont, setThemeFont] = useState(themeCtx.themeFont);
 
   const setColorHandler = (color) => {
     setThemeColor(color);
-    console.log(themeColor);
+  };
+
+  const setFontHandler = (font) => {
+    setThemeFont(font);
   };
 
   const applySettingHandler = () => {
-    changeThemeColorHandler(themeColor);
+    changeThemeHandler(themeColor, themeFont);
     onClose();
   };
 
@@ -89,42 +94,12 @@ const Setting = () => {
               <TimerInput key="longBreak" label="long break" time="15" />
             </Flex>
             <Divider />
-            <HStack justifyContent="space-between" my={4}>
-              <Text textStyle="h4" as="h4">
-                FONT
-              </Text>
-              <HStack width="200px" justifyContent="space-evenly">
-                <Button
-                  width={12}
-                  height={12}
-                  borderRadius="50%"
-                  fontFamily="Kumbh_Sans"
-                  onClick={(e) => changeThemeColorHandler(themeColorData.red)}
-                >
-                  Aa
-                </Button>
-                <Button
-                  width={12}
-                  height={12}
-                  borderRadius="50%"
-                  fontFamily="Roboto_Slab"
-                  onClick={(e) => changeThemeColorHandler(themeColorData.red)}
-                >
-                  Aa
-                </Button>
-                <Button
-                  width={12}
-                  height={12}
-                  borderRadius="50%"
-                  fontFamily="Space_Mono"
-                  onClick={(e) => changeThemeColorHandler(themeColorData.red)}
-                >
-                  Aa
-                </Button>
-              </HStack>
-            </HStack>
+            <FontSelector setFontHandler={setFontHandler} font={themeFont} />
             <Divider />
-            <ThemeSelector setColorHandler={setColorHandler} color={themeColor}/>
+            <ColorSelector
+              setColorHandler={setColorHandler}
+              color={themeColor}
+            />
           </ModalBody>
           <Divider />
           <ModalFooter>
