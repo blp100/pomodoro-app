@@ -2,7 +2,6 @@ import {
   Box,
   Text,
   IconButton,
-  HStack,
   useNumberInput,
   Input,
   ButtonGroup,

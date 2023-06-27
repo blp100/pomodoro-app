@@ -124,7 +124,7 @@ const Setting = () => {
               </HStack>
             </HStack>
             <Divider />
-            <ThemeSelector setColorHandler={setColorHandler} />
+            <ThemeSelector setColorHandler={setColorHandler} color={themeColor}/>
           </ModalBody>
           <Divider />
           <ModalFooter>
