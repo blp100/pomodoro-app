@@ -14,14 +14,8 @@ export const ThemeContextProvider = ({ children }) => {
   useEffect(() => initialThemeHandler());
 
   const isLocalStorageEmpty = () => {
-    if (
-      !localStorage.getItem("themeColor") ||
-      !localStorage.getItem("themeFont")
-    ) {
-      return false;
-    } else {
-      return true;
-    }
+    return !localStorage.getItem("themeColor") ||
+    !localStorage.getItem("themeFont")
   };
 
   const initialThemeHandler = () => {
