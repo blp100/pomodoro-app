@@ -1,11 +1,12 @@
-import { Box, Center, Circle, CircularProgress, Text } from "@chakra-ui/react";
+import { Box, Circle, CircularProgress, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import ThemeContext from "./color-theme";
 
 const Timer = () => {
   const themeCtx = useContext(ThemeContext);
-  const [countDownTime, setCountDownTime] = useState(2 * 60 * 1000);
+  const [countDownTime, setCountDownTime] = useState(0.1 * 60 * 1000);
   const [intervalId, setIntervalId] = useState(0);
+  const [countingStatus, setCountingStatus] = useState("pause");
 
   const startCountDown = () => {
     if (intervalId) {
@@ -14,11 +15,39 @@ const Timer = () => {
       return;
     }
 
+    if (countingStatus === "end") {
+      setCountDownTime((countDownTime) => 0.1 * 60 * 1000);
+      setCountingStatus((countingStatus) => "pause");
+      return
+    }
+
     const newIntervalId = setInterval(() => {
       setCountDownTime((countDownTime) => countDownTime - 1000);
+      console.log(newIntervalId);
     }, 1000);
     setIntervalId(newIntervalId);
+    setCountingStatus("counting");
   };
+
+  useEffect(() => {
+    console.log(countDownTime);
+    if (countDownTime <= 0) {
+      clearInterval(intervalId);
+      setIntervalId(0);
+      setCountingStatus("end");
+    }
+  }, [countDownTime]);
+
+  useEffect(() => {
+    console.log(intervalId);
+  }, [intervalId]);
+
+  const btnName =
+    countingStatus === "pause"
+      ? "START"
+      : countingStatus === "counting"
+      ? "PAUSE"
+      : "RESTART";
 
   return (
     <Circle
@@ -65,7 +94,7 @@ const Timer = () => {
             ml={0.5}
             onClick={startCountDown}
           >
-            {!intervalId ? "START" : "PAUSE"}
+            {btnName}
           </Text>
         </Box>
       </Circle>

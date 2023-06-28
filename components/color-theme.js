@@ -23,6 +23,7 @@ export const ThemeContextProvider = ({ children }) => {
       localStorage.setItem("themeColor", themeColorData.red);
       localStorage.setItem("themeFont", themeFontData.Kumbh_Sans);
       setThemeColor(themeColorData.red);
+      setThemeFont(themeFont.Kumbh_Sans);
     } else {
       const themeColor = localStorage.getItem("themeColor");
       const themeFont = localStorage.getItem("themeFont");
