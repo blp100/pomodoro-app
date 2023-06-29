@@ -9,13 +9,14 @@ import {
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const TimerInput = (props) => {
-  const { label, time } = props;
+  const { label, time, changeDurationHandler, ...otherProps } = props;
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
       step: 1,
       defaultValue: time,
       min: 1,
       max: 60,
+      onChange: (value, valueAsNumber) => changeDurationHandler(valueAsNumber),
     });
 
   const inc = getIncrementButtonProps();
@@ -44,13 +45,13 @@ const TimerInput = (props) => {
           {...dec}
         />
         <Input
-          {...input}
           size="sm"
           w="44px"
           textStyle="body2"
           textAlign="center"
           focusBorderColor="lavenderMist"
           _focus={{ bgColor: "#FFFFFF20" }}
+          {...input}
         />
         <IconButton
           color="lavenderMist"

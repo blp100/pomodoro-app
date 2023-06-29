@@ -42,7 +42,7 @@ const StatusBar = () => {
           onClick={() => setSelectedTab(item)}
         >
           <Text
-            as="sapn"
+            as="span"
             pos="relative"
             zIndex={1}
             userSelect="none"

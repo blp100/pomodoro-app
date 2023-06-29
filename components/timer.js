@@ -23,7 +23,6 @@ const Timer = () => {
 
     const newIntervalId = setInterval(() => {
       setCountDownTime((countDownTime) => countDownTime - 1000);
-      console.log(newIntervalId);
     }, 1000);
     setIntervalId(newIntervalId);
     setCountingStatus("counting");

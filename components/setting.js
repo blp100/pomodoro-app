@@ -31,6 +31,15 @@ const Setting = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [themeColor, setThemeColor] = useState(themeCtx.themeColor);
   const [themeFont, setThemeFont] = useState(themeCtx.themeFont);
+  const [pomodoroDuration, setPomodoroDuration] = useState(
+    themeCtx.pomodoroDuration
+  );
+  const [shortBreakDuration, setShortBreakDuration] = useState(
+    themeCtx.shortBreakDuration
+  );
+  const [longBreakDuration, setLongBreakDuration] = useState(
+    themeCtx.longBreakDuration
+  );
 
   const setColorHandler = (color) => {
     setThemeColor(color);
@@ -38,6 +47,17 @@ const Setting = () => {
 
   const setFontHandler = (font) => {
     setThemeFont(font);
+  };
+
+  const changePomodoroDurationHandler = (time) => {
+    console.log(time);
+    // setPomodoroDuration(time);
+  };
+  const changeShortBreakDurationHandler = (time) => {
+    // setShortBreakDuration(time);
+  };
+  const changeLongBreakDurationHandler = (time) => {
+    // setLongBreakDuration(time);
   };
 
   const applySettingHandler = () => {
@@ -53,7 +73,8 @@ const Setting = () => {
         w="38px"
         h="38px"
         mx="auto"
-        my={["79px", "144px", "63px"]}
+        mt={["79px", "144px", "63px"]}
+        mb={["79px", "144px", "50px"]}
         display="block"
         opacity={0.5}
         cursor="pointer"
@@ -89,9 +110,24 @@ const Setting = () => {
               justifyContent="space-between"
               color="lavenderMist"
             >
-              <TimerInput key="pomodoro" label="pomodoro" time="25" />
-              <TimerInput key="shortBreak" label="short break" time="5" />
-              <TimerInput key="longBreak" label="long break" time="15" />
+              <TimerInput
+                key="pomodoro"
+                label="pomodoro"
+                time={pomodoroDuration}
+                changeDurationHandler={changePomodoroDurationHandler}
+              />
+              <TimerInput
+                key="shortBreak"
+                label="short break"
+                time={shortBreakDuration}
+                changeDurationHandler={changeShortBreakDurationHandler}
+              />
+              <TimerInput
+                key="longBreak"
+                label="long break"
+                time={longBreakDuration}
+                changeDurationHandler={changeLongBreakDurationHandler}
+              />
             </Flex>
             <Divider />
             <FontSelector setFontHandler={setFontHandler} font={themeFont} />
