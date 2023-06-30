@@ -1,8 +1,11 @@
 import { Box, Circle, CircularProgress, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import ThemeContext from "./color-theme";
+import { initialTabs as tabs } from "../lib/constants";
 
-const Timer = () => {
+const Timer = (props) => {
+  const { timerData, ...otherProps } = props;
+
   const themeCtx = useContext(ThemeContext);
   const [countDownTime, setCountDownTime] = useState(
     themeCtx.pomodoroDuration * 60 * 1000
@@ -10,7 +13,11 @@ const Timer = () => {
   const [intervalId, setIntervalId] = useState(0);
   const [countingStatus, setCountingStatus] = useState("pause");
 
-  const [timerDuration, setTimerDuration] = useState(["25", "5", "15"]);
+  //timer
+  const [tempPomodoro, setTempPomodoro] = useState(25);
+  const [tempShort, setTempShort] = useState(5);
+  const [tempLong, setTempLong] = useState(15);
+  const [timerLabel, setTimerLabel] = useState(25);
 
   const startCountDown = () => {
     if (intervalId) {
@@ -33,20 +40,41 @@ const Timer = () => {
   };
 
   useEffect(() => {
+    if (tempPomodoro != Number(themeCtx.pomodoroDuration)) {
+      setTempPomodoro(() => Number(themeCtx.pomodoroDuration));
+    }
+  }, [tempPomodoro, themeCtx.pomodoroDuration]);
+  useEffect(() => {
+    if (tempShort != Number(themeCtx.shortBreakDuration)) {
+      setTempShort(() => Number(themeCtx.shortBreakDuration));
+    }
+  }, [tempShort, themeCtx.shortBreakDuration]);
+  useEffect(() => {
+    if (tempLong != Number(themeCtx.longBreakDuration)) {
+      setTempLong(() => Number(themeCtx.longBreakDuration));
+    }
+  }, [tempLong, themeCtx.longBreakDuration]);
+
+  useEffect(() => {
     if (countDownTime <= 0) {
       clearInterval(intervalId);
       setIntervalId(0);
       setCountingStatus("end");
     }
-  }, [countDownTime, themeCtx.pomodoroDuration]);
+  }, [countDownTime]);
 
   useEffect(() => {
-    if (timerDuration[0] != themeCtx.pomodoroDuration) {
-      // console.log("true");
-      // console.log("Timer", timerDuration[0]);
-      // console.log("context", themeCtx.pomodoroDuration);
+    if (timerData == tabs[0]) {
+      setTimerLabel(() => tempPomodoro);
+      setCountDownTime(() => tempPomodoro * 60 * 1000);
+    }else if(timerData == tabs[1]){
+      setTimerLabel(() => tempShort);
+      setCountDownTime(() => tempShort * 60 * 1000);
+    }else if(timerData == tabs[2]){
+      setTimerLabel(() => tempLong);
+      setCountDownTime(() => tempLong * 60 * 1000);
     }
-  }, [timerDuration, themeCtx.pomodoroDuration]);
+  }, [timerData]);
 
   const btnName =
     countingStatus === "pause"
@@ -71,7 +99,7 @@ const Timer = () => {
       >
         <CircularProgress
           size={["283.475px", "373px"]}
-          value={(countDownTime / 60 / 1000 / 2) * 100}
+          value={(countDownTime / 60 / 1000 / timerLabel) * 100}
           color={themeCtx.themeColor}
           thickness={3.5}
           trackColor="darkBlueBlack"

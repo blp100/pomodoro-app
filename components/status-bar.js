@@ -12,7 +12,8 @@ const ChakraBox = chakra(motion.div, {
     isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
-const StatusBar = () => {
+const StatusBar = (props) => {
+  const { statusHandler, ...otherProps } = props;
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const themeCtx = useContext(ThemeContext);
 
@@ -39,7 +40,10 @@ const StatusBar = () => {
           justifyContent="center"
           alignItems="center"
           cursor="pointer"
-          onClick={() => setSelectedTab(item)}
+          onClick={() => {
+            setSelectedTab(item);
+            statusHandler(item);
+          }}
         >
           <Text
             as="span"
@@ -61,7 +65,6 @@ const StatusBar = () => {
                 layout: {
                   type: "spring",
                   duration: 0.3,
-                  // ease: "easeOut",
                 },
               }}
               pos="absolute"

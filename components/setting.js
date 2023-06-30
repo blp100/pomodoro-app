@@ -26,8 +26,6 @@ const Setting = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [themeColor, setThemeColor] = useState(themeCtx.themeColor);
   const [themeFont, setThemeFont] = useState(themeCtx.themeFont);
-  console.log("themeFont", themeFont);
-  console.log("themeCtx.themeFont", themeCtx.themeFont);
   const [pomodoroDuration, setPomodoroDuration] = useState(
     Number(themeCtx.pomodoroDuration)
   );
