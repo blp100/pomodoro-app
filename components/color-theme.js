@@ -26,6 +26,10 @@ export const ThemeContextProvider = ({ children }) => {
 
   useEffect(() => initialThemeHandler());
 
+  useEffect(() => {
+    console.log(themeFont);
+  }, [themeFont]);
+
   const isLocalStorageEmpty = () => {
     return (
       !localStorage.getItem("themeColor") ||

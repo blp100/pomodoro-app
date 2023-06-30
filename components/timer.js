@@ -4,9 +4,13 @@ import ThemeContext from "./color-theme";
 
 const Timer = () => {
   const themeCtx = useContext(ThemeContext);
-  const [countDownTime, setCountDownTime] = useState(0.1 * 60 * 1000);
+  const [countDownTime, setCountDownTime] = useState(
+    themeCtx.pomodoroDuration * 60 * 1000
+  );
   const [intervalId, setIntervalId] = useState(0);
   const [countingStatus, setCountingStatus] = useState("pause");
+
+  const [timerDuration, setTimerDuration] = useState(["25", "5", "15"]);
 
   const startCountDown = () => {
     if (intervalId) {
@@ -16,9 +20,9 @@ const Timer = () => {
     }
 
     if (countingStatus === "end") {
-      setCountDownTime((countDownTime) => 0.1 * 60 * 1000);
-      setCountingStatus((countingStatus) => "pause");
-      return
+      setCountDownTime(() => 0.1 * 60 * 1000);
+      setCountingStatus(() => "pause");
+      return;
     }
 
     const newIntervalId = setInterval(() => {
@@ -29,17 +33,20 @@ const Timer = () => {
   };
 
   useEffect(() => {
-    console.log(countDownTime);
     if (countDownTime <= 0) {
       clearInterval(intervalId);
       setIntervalId(0);
       setCountingStatus("end");
     }
-  }, [countDownTime]);
+  }, [countDownTime, themeCtx.pomodoroDuration]);
 
   useEffect(() => {
-    console.log(intervalId);
-  }, [intervalId]);
+    if (timerDuration[0] != themeCtx.pomodoroDuration) {
+      // console.log("true");
+      // console.log("Timer", timerDuration[0]);
+      // console.log("context", themeCtx.pomodoroDuration);
+    }
+  }, [timerDuration, themeCtx.pomodoroDuration]);
 
   const btnName =
     countingStatus === "pause"

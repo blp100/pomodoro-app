@@ -15,7 +15,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { IoIosSettings } from "react-icons/io";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ThemeContext from "../components/color-theme";
 import TimerInput from "./timer-input";
 import ColorSelector from "./color-selector";
@@ -23,23 +23,35 @@ import FontSelector from "./font-selector";
 
 const Setting = () => {
   const themeCtx = useContext(ThemeContext);
-
-  const changeThemeHandler = (color, font) => {
-    themeCtx.changeThemeHandler(color, font);
-  };
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [themeColor, setThemeColor] = useState(themeCtx.themeColor);
   const [themeFont, setThemeFont] = useState(themeCtx.themeFont);
+  console.log("themeFont", themeFont);
+  console.log("themeCtx.themeFont", themeCtx.themeFont);
   const [pomodoroDuration, setPomodoroDuration] = useState(
-    themeCtx.pomodoroDuration
+    Number(themeCtx.pomodoroDuration)
   );
   const [shortBreakDuration, setShortBreakDuration] = useState(
-    themeCtx.shortBreakDuration
+    Number(themeCtx.shortBreakDuration)
   );
   const [longBreakDuration, setLongBreakDuration] = useState(
-    themeCtx.longBreakDuration
+    Number(themeCtx.longBreakDuration)
   );
+  //need to write some check oon theme parameter change
+
+  useEffect(() => {
+    setThemeColor(() => themeCtx.themeColor);
+    setThemeFont(() => themeCtx.themeFont);
+    setPomodoroDuration(() => themeCtx.pomodoroDuration);
+    setShortBreakDuration(() => themeCtx.shortBreakDuration);
+    setLongBreakDuration(() => themeCtx.longBreakDuration);
+  }, [
+    themeCtx.themeColor,
+    themeCtx.themeFont,
+    themeCtx.pomodoroDuration,
+    themeCtx.shortBreakDuration,
+    themeCtx.longBreakDuration,
+  ]);
 
   const setColorHandler = (color) => {
     setThemeColor(color);
@@ -50,18 +62,23 @@ const Setting = () => {
   };
 
   const changePomodoroDurationHandler = (time) => {
-    console.log(time);
-    // setPomodoroDuration(time);
+    setPomodoroDuration(() => time);
   };
   const changeShortBreakDurationHandler = (time) => {
-    // setShortBreakDuration(time);
+    setShortBreakDuration(() => time);
   };
   const changeLongBreakDurationHandler = (time) => {
-    // setLongBreakDuration(time);
+    setLongBreakDuration(() => time);
   };
 
   const applySettingHandler = () => {
-    changeThemeHandler(themeColor, themeFont);
+    themeCtx.changeThemeHandler(
+      themeColor,
+      themeFont,
+      pomodoroDuration,
+      shortBreakDuration,
+      longBreakDuration
+    );
     onClose();
   };
 

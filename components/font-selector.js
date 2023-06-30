@@ -14,7 +14,9 @@ const FontSelector = (props) => {
           height={12}
           borderRadius="50%"
           fontFamily="Kumbh_Sans"
-          backgroundColor={font===themeFontData.Kumbh_Sans?"#D7E0FF60":null}
+          backgroundColor={
+            font === themeFontData.Kumbh_Sans ? "#D7E0FF60" : null
+          }
           onClick={(e) => setFontHandler(themeFontData.Kumbh_Sans)}
         >
           Aa
@@ -24,7 +26,9 @@ const FontSelector = (props) => {
           height={12}
           borderRadius="50%"
           fontFamily="Roboto_Slab"
-          backgroundColor={font===themeFontData.Roboto_Slab?"#D7E0FF60":null}
+          backgroundColor={
+            font === themeFontData.Roboto_Slab ? "#D7E0FF60" : null
+          }
           onClick={(e) => setFontHandler(themeFontData.Roboto_Slab)}
         >
           Aa
@@ -34,7 +38,9 @@ const FontSelector = (props) => {
           height={12}
           borderRadius="50%"
           fontFamily="Space_Mono"
-          backgroundColor={font===themeFontData.Space_Mono?"#D7E0FF60":null}
+          backgroundColor={
+            font === themeFontData.Space_Mono ? "#D7E0FF60" : null
+          }
           onClick={(e) => setFontHandler(themeFontData.Space_Mono)}
         >
           Aa
