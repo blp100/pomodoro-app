@@ -89,7 +89,7 @@ const Setting = () => {
         h="38px"
         mx="auto"
         mt={["79px", "144px", "63px"]}
-        mb={["79px", "144px", "50px"]}
+        mb={["79px", "144px", "63px"]}
         display="block"
         opacity={0.5}
         cursor="pointer"
