@@ -6,16 +6,16 @@ import { useState } from "react";
 import { initialTabs as tabs } from "../lib/constants";
 
 const Page = () => {
-  const [timerData, setTimerLabel] = useState(tabs[0]);
+  const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const statusHandler = (item) => {
-    setTimerLabel(item);
+    setSelectedTab(item);
   };
 
   return (
     <>
       <Header />
-      <StatusBar statusHandler={statusHandler} />
-      <Timer timerData={timerData} />
+      <StatusBar selectedTab={selectedTab} statusHandler={statusHandler} />
+      <Timer selectedTab={selectedTab} statusHandler={statusHandler} />
       <Setting />
     </>
   );

@@ -4,7 +4,7 @@ import ThemeContext from "./color-theme";
 import { initialTabs as tabs } from "../lib/constants";
 
 const Timer = (props) => {
-  const { timerData, ...otherProps } = props;
+  const { timerData, statusHandler, ...otherProps } = props;
 
   const themeCtx = useContext(ThemeContext);
   const [countDownTime, setCountDownTime] = useState(
@@ -18,6 +18,9 @@ const Timer = (props) => {
   const [tempShort, setTempShort] = useState(5);
   const [tempLong, setTempLong] = useState(15);
   const [timerLabel, setTimerLabel] = useState(25);
+  // step even it mean pomodoro
+  // step 1, 3, 5 it mean short break, 7 is long break
+  const [timerStep, setTimerStep] = useState(0);
 
   const startCountDown = () => {
     if (intervalId) {
@@ -31,7 +34,12 @@ const Timer = (props) => {
       setCountingStatus(() => "pause");
       return;
     }
+    setCountDownTime(() => 0.1 * 60 * 1000);
+    // console.log(timerData);
+    startNewTimer();
+  };
 
+  const startNewTimer = () => {
     const newIntervalId = setInterval(() => {
       setCountDownTime((countDownTime) => countDownTime - 1000);
     }, 1000);
@@ -59,21 +67,27 @@ const Timer = (props) => {
     if (countDownTime <= 0) {
       clearInterval(intervalId);
       setIntervalId(0);
-      setCountingStatus("end");
+      if ((timerStep % 2) == 0) {
+        setTimerStep((timerStep)=>timerStep+1);
+        setCountDownTime(()=>tempShort * 60 * 1000);
+        statusHandler(tabs[1]);
+        startNewTimer();
+      }
+      // setCountingStatus("end");
     }
   }, [countDownTime]);
 
   useEffect(() => {
-    if (timerData == tabs[0]) {
-      setTimerLabel(() => tempPomodoro);
-      setCountDownTime(() => tempPomodoro * 60 * 1000);
-    }else if(timerData == tabs[1]){
-      setTimerLabel(() => tempShort);
-      setCountDownTime(() => tempShort * 60 * 1000);
-    }else if(timerData == tabs[2]){
-      setTimerLabel(() => tempLong);
-      setCountDownTime(() => tempLong * 60 * 1000);
-    }
+      if (timerData == tabs[0]) {
+        setTimerLabel(() => tempPomodoro);
+        setCountDownTime(() => tempPomodoro * 60 * 1000);
+      } else if (timerData == tabs[1]) {
+        setTimerLabel(() => tempShort);
+        setCountDownTime(() => tempShort * 60 * 1000);
+      } else if (timerData == tabs[2]) {
+        setTimerLabel(() => tempLong);
+        setCountDownTime(() => tempLong * 60 * 1000);
+      }
   }, [timerData]);
 
   const btnName =

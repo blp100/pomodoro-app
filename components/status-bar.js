@@ -13,8 +13,7 @@ const ChakraBox = chakra(motion.div, {
 });
 
 const StatusBar = (props) => {
-  const { statusHandler, ...otherProps } = props;
-  const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const { statusHandler, selectedTab, ...otherProps } = props;
   const themeCtx = useContext(ThemeContext);
 
   return (
@@ -41,7 +40,6 @@ const StatusBar = (props) => {
           alignItems="center"
           cursor="pointer"
           onClick={() => {
-            setSelectedTab(item);
             statusHandler(item);
           }}
         >
