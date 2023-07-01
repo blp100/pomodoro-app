@@ -7,15 +7,27 @@ import { initialTabs as tabs } from "../lib/constants";
 
 const Page = () => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
+
+  const [countingStatus, setCountingStatus] = useState("pause");
+  const clickStatuseHandler = (item) =>{
+    if (countingStatus !== "counting"){
+      setSelectedTab(item);
+    }
+  }
   const statusHandler = (item) => {
-    setSelectedTab(item);
+      setSelectedTab(item);
   };
 
   return (
     <>
       <Header />
-      <StatusBar selectedTab={selectedTab} statusHandler={statusHandler} />
-      <Timer selectedTab={selectedTab} statusHandler={statusHandler} />
+      <StatusBar selectedTab={selectedTab} statusHandler={clickStatuseHandler} />
+      <Timer
+        timerData={selectedTab}
+        statusHandler={statusHandler}
+        countingStatus={countingStatus}
+        setCountingStatus={setCountingStatus}
+      />
       <Setting />
     </>
   );
