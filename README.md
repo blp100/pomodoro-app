@@ -1,5 +1,4 @@
-# Frontend Mentor Challenge 4 - Pomodoro app
-
+# Frontend Mentor Challenge 5 - Art Gallery Website
 This is a solution to the [Pomodoro app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/pomodoro-app-KBFnycJ6G). 
 ## Table of contents
 - [Overview](#overview)
